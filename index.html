@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="./style.css">
+        <script src="./script.js" defer></script>
+    </head>
+
+    <body>
+        <div class="root">
+            <div class="options">
+                <div class="slider">
+                    <p>Grid Size</p>
+                    <input id="slider" type="range" min="8" max="64" value="16">
+                    <p class="grid-size"></p>
+                </div>
+
+                <button class="clear">Clear</button>
+
+                <div class="rad">
+                    <input type="radio" id="default" name="color" value="default" checked>
+                    <label for="default">Default</label>
+                </div>
+                <div class="rad">
+                    <input type="radio" id="randomize" name="color" value="random">
+                    <label for="randomize">Randomize Color</label>
+                </div>
+
+                <!-- No idea how to darken the color without complex calculations
+                <input type="radio" id="darken" name="color" value="darken">
+                <label for="darken">Darken Color</label>
+                -->
+
+            </div>
+
+            <div class="sketch-pad">
+            </div>
+        </div>
+    </body>
+</html>

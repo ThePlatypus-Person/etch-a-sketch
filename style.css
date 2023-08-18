@@ -1,0 +1,90 @@
+:root {
+    --grey: #dad7cd;
+    --green1: #a3b18a;
+    --green2: #588157;
+    --green3: #3a5a40;
+    --green4: #344e41;
+    --green5: #000814;
+    --yellow: #e9c46a;
+}
+
+html, body {
+    margin: 0px;
+    padding: 0px;
+    height: 100%;
+    width: 100%;
+}
+
+/* Colors & Rice */
+.root {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+
+    display: flex;
+    padding: 20px;
+    background-color: var(--green4);
+    justify-content: space-around;
+    align-items: center;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    border: solid var(--green2) 5px;
+    justify-content: center;
+    align-items: stretch;
+    padding: 40px 50px;
+    box-sizing: border-box;
+    background-color: var(--yellow);
+    color: var(--green3);
+    font-weight: bold;
+    font-size: 25px;
+    gap: 10px;
+}
+
+.slider {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.slider p {
+    align-self: center;
+    color: black;
+}
+
+.clear {
+    padding: 10px;
+    border: solid var(--green4) 5px;
+    border-radius: 40px;
+    background-color: white;
+}
+
+.clear:hover {
+    background-color: var(--green1);
+}
+
+.clear:active {
+    background-color: var(--grey);
+}
+
+/* Sketch pad CSS */
+.sketch-pad {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    height: 500px;
+    border: solid var(--grey) 10px;
+    border-radius: 10px;
+}
+
+.row {
+    display: flex;
+    flex: auto;
+}
+
+.grid {
+    flex: auto;
+    background-color: white;
+}
