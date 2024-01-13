@@ -1,75 +1,95 @@
-const sketchPad = document.querySelector(".sketch-pad");
+const body = document.querySelector("body");
+const screen = document.querySelector(".screen");
 
-// Grid Size Slider
-const slider = document.querySelector("#slider");
-let gridSize = 16;
-generateSketchPad(gridSize);
-let gridValue = document.querySelector(".grid-size");
-gridValue.textContent = `${gridSize} x ${gridSize}`;
-slider.addEventListener("input", (e) => {
-    gridSize = e.target.value;
-    gridValue.textContent = `${gridSize} x ${gridSize}`;
+let size = 16;
+createScreen();
+
+// Change Slider h3 Text
+const slider = document.querySelector("input[type='range']");
+const sliderLabel = document.querySelector(".slider > h3");
+slider.addEventListener("input", () => {
+    sliderLabel.textContent = slider.value;
 });
 
-slider.addEventListener("change", () => {
-    generateSketchPad(gridSize);
-});
+// Resets Button
+const reset = document.querySelector(".reset.btn");
+reset.addEventListener("click", createScreen);
 
+// Reloads Screen on Slider Change
+slider.onchange = () => {
+    size = slider.value;
+    createScreen();
+};
 
-// Color Change for grid
-let colorSetting = "default";
-let defaultHue = 33;
-const radios = document.querySelectorAll(`input[type="radio"]`);
-
-radios.forEach(radio => {
-    radio.addEventListener("click", (e) => {
-        colorSetting = e.target.value;
+// Pick different color
+const colorList = [
+    { name: "red", hex: "#ef4444" },
+    { name: "orange", hex: "#f97316" },
+    { name: "yellow", hex: "#eab308" },
+    { name: "lime", hex: "#84cc16" },
+    { name: "blue", hex: "#3b82f6" },
+];
+const colorSelect = document.querySelectorAll(".right-input > .btn");
+colorSelect.forEach(button => {
+    button.addEventListener("click", (e) => {
+        setColor(e.target.dataset.color);
     })
 });
 
+// Changes Color When Drawing on Screen
+let mouseDown = false;
+screen.addEventListener("mousedown", () => mouseDown = true);
+screen.addEventListener("mouseup", () => mouseDown = false);
+screen.addEventListener("mousemove", changeColor);
+
+// Functions
+let target;
 function changeColor(e) {
-    if (mouseDown) {
-        if (colorSetting === "default") {
-            e.target.style.backgroundColor = `hsla(${defaultHue}, 100%, 70%, 1)`;
-        } else if (colorSetting === "random") {
-            let hue = Math.floor(Math.random() * 360 );
-            e.target.style.backgroundColor = `hsl(${hue}, 100%, 60%)`;
-        } 
-    }
+    if (!mouseDown || target == e.target) return;
+
+    target = e.target;
+    if (selectedColor === "random") {
+        const randomNum = Math.floor(Math.random() * 5);
+        const randomColor = colorList[randomNum]["hex"];
+        target.setAttribute("style", `background-color: ${randomColor}`);
+        return;
+    } 
+
+    target.setAttribute("style", `background-color: ${selectedColor}`);
 }
 
-// Conditional for coloring pixels only when mouse is clicked
-let mouseDown = false;
-document.addEventListener("mousedown", () => {mouseDown = true});
-document.addEventListener("mouseup", () => {mouseDown = false});
+function clearScreen() {
+    while (screen.firstChild)
+        screen.removeChild(screen.lastChild);
+}
 
-// Generate Sketch Pad
-function generateSketchPad() {
-    sketchPad.innerHTML = '';
-    for (let i = 1; i <= gridSize; i++) {
-        let row = document.createElement("div");
+function createScreen() {
+    clearScreen(); 
+
+    // Create Screen (size x size)
+    for (let i = 1; i <= size; i++) {
+        const row = document.createElement("div");
         row.classList.add("row");
 
-        for (let i = 1; i <= gridSize; i++) {
-            let grid = document.createElement("div");
-            grid.classList.add("grid");
-
-            grid.addEventListener("mouseout", (e) => {
-                changeColor(e);
-            });
-
-            row.appendChild(grid);
+        for (let j = 1; j <= size; j++) {
+            const cell = document.createElement("div");
+            cell.setAttribute("data-key", `(${i},${j})`);
+            row.appendChild(cell);
         }
-        sketchPad.appendChild(row);
+
+        screen.appendChild(row);
     }
 }
 
-// Clear
-const btnClear = document.querySelector(".clear");
-btnClear.addEventListener("click", () => {
-    let gridList = document.querySelectorAll(".grid");
-    gridList.forEach(grid => {
-        grid.style.backgroundColor = "white";
-    });
-});
+// Changes Selected Color
+let selectedColor = "random";
+function setColor(color) {
+    if (color === "random") {
+        selectedColor = "random";
+        body.setAttribute("style", "background-color: #1e293b");
+        return;
+    }
 
+    selectedColor = colorList.find(item => item.name === color)["hex"];
+    body.setAttribute("style", `background-color: ${selectedColor}`);
+}

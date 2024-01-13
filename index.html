@@ -1,40 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <link rel="stylesheet" href="./style.css">
-        <script src="./script.js" defer></script>
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <script src="./script.js" defer></script>
+    <title>Etch A Sketch</title>
+</head>
+<body>
+    <h1 class="title">Etch-a-Sketch</h1>
 
-    <body>
-        <div class="root">
-            <div class="options">
-                <div class="slider">
-                    <p>Grid Size</p>
-                    <input id="slider" type="range" min="8" max="64" value="16">
-                    <p class="grid-size"></p>
-                </div>
+    <div class="container">
+        <div class="left-input">
+            <button class="reset btn">R</button>
 
-                <button class="clear">Clear</button>
-
-                <div class="rad">
-                    <input type="radio" id="default" name="color" value="default" checked>
-                    <label for="default">Default</label>
-                </div>
-                <div class="rad">
-                    <input type="radio" id="randomize" name="color" value="random">
-                    <label for="randomize">Randomize Color</label>
-                </div>
-
-                <!-- No idea how to darken the color without complex calculations
-                <input type="radio" id="darken" name="color" value="darken">
-                <label for="darken">Darken Color</label>
-                -->
-
-            </div>
-
-            <div class="sketch-pad">
+            <div class="slider">
+                <input type="range" min="6" max="64" value="16" orient="vertical">
+                <h3>16</h3>
             </div>
         </div>
-    </body>
+
+        <div class="screen"></div>
+
+        <div class="right-input">
+            <button class="btn" data-color="red"></button>
+            <button class="btn" data-color="orange"></button>
+            <button class="btn" data-color="yellow"></button>
+            <button class="btn" data-color="lime"></button>
+            <button class="btn" data-color="blue"></button>
+            <button class="btn" data-color="random">Any</button>
+        </div>
+    </div>
+</body>
 </html>
