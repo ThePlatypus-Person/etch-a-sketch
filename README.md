@@ -1,2 +1,4 @@
 # Etch-a-Sketch
-This is an exercise from the OdinProject
+This is a DOM manipulation exercise from the OdinProject
+
+Demo: https://theplatypus-person.github.io/etch-a-sketch/
